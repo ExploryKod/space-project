@@ -11,24 +11,27 @@ type DestinationData = {
 
 type DestinationTabsProps = {
   destinations: readonly DestinationData[];
-  initialActiveDestination: string;
+  activeDestination: string;
+  onSelect: (slug: string) => void;
 };
 
 export default function DestinationTabs({
   destinations,
-  initialActiveDestination,
+  activeDestination,
+  onSelect,
 }: DestinationTabsProps) {
-  const [activeDestination, setActiveDestination] = useState(initialActiveDestination);
-  const [focusedDestination, setFocusedDestination] = useState(initialActiveDestination);
+  const [focusedDestination, setFocusedDestination] = useState(activeDestination);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const focusedIndex = destinations.findIndex((item) => item.slug === focusedDestination);
+  const focusedIndex = destinations.findIndex(
+    (item) => item.slug === focusedDestination,
+  );
 
   const selectDestination = (slug: string) => {
-    setActiveDestination(slug);
+    onSelect(slug);
     setFocusedDestination(slug);
 
     const nextParams = new URLSearchParams(searchParams.toString());
@@ -44,7 +47,8 @@ export default function DestinationTabs({
 
     const currentIndex = focusedIndex < 0 ? 0 : focusedIndex;
     const direction = event.key === "ArrowRight" ? 1 : -1;
-    const nextIndex = (currentIndex + direction + destinations.length) % destinations.length;
+    const nextIndex =
+      (currentIndex + direction + destinations.length) % destinations.length;
 
     const nextSlug = destinations[nextIndex].slug;
     setFocusedDestination(nextSlug);
