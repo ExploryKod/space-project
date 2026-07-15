@@ -8,7 +8,7 @@ Site en cours de fondation.<br>
 
 L'api n'est pas encore relié pleinement au site frontend et surtout **le site frontend en nextjs n'a pas le bon choix d'architecture**. Ici c'est overkill. <br>
 
-**Contexte** : nous l'avions fait avant avec des data dans des fichiers json mais l'idée de départ était de rester sur NextJS. Or en lui ajoutant une api en AdonyJS la question se pose de garder NextJS pour le remplacer par un simple front avec un framework plus adapté.
+**Contexte** : nous l'avions fait avant avec des data dans des fichiers json mais l'idée de départ était de rester sur NextJS. Or en lui ajoutant une api en AdonisJS la question se pose de garder NextJS pour le remplacer par un simple front avec un framework plus adapté.
 
 > Design inspiré du challenge Frontend Mentor *Space tourism website*. Implémentation full-stack personnelle.
 
