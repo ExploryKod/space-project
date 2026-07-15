@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getT } from "next-i18next/server";
 import DestinationTabs from "@/app/_components/molecules/DestinationTabs";
+import { getDestinations } from "@modules/destinations/infra/destinations.api";
+import { toDestinationView } from "@modules/destinations/types/destination.types";
 
 type PageProps = {
   params: Promise<{ lng: string }>;
@@ -22,62 +24,31 @@ export default async function Destination({ params, searchParams }: PageProps) {
   const resolvedSearchParams = await searchParams;
   const { t } = await getT("destination", { lng });
 
-  const destinationSlugs: readonly string[] = ["moon", "mars", "europa", "titan"];
-
   const missingMarker = (key: string) => `[[MISSING_TRANSLATION:${key}]]`;
   const safeT = (key: string) =>
     t(key, {
       defaultValue: missingMarker(key),
     });
 
-  const isMissing = (value: string, key: string) => value === missingMarker(key);
-  const requiredFields = ["name", "description", "distance", "travel", "image", "webp", "alt"] as const;
+  const destinations = (await getDestinations(lng)).map(toDestinationView);
 
-  type DestinationData = {
-    slug: string;
-    name: string;
-    description: string;
-    distance: string;
-    travel: string;
-    image: string;
-    webp: string;
-    alt: string;
-  };
-
-  const destinations: DestinationData[] = destinationSlugs.map((slug) => {
-    const data = {
-      slug,
-      name: safeT(`items.${slug}.name`),
-      description: safeT(`items.${slug}.description`),
-      distance: safeT(`items.${slug}.distance`),
-      travel: safeT(`items.${slug}.travel`),
-      image: safeT(`items.${slug}.image`),
-      webp: safeT(`items.${slug}.webp`),
-      alt: safeT(`items.${slug}.alt`),
-    };
-
-    const missingFields = requiredFields.filter((field) =>
-      isMissing(data[field], `items.${slug}.${field}`),
-    );
-
-    if (missingFields.length > 0) {
-      throw new Error(
-        `Invalid destination i18n data for "${slug}". Missing fields: ${missingFields.join(", ")}`,
-      );
-    }
-
-    return data;
-  });
+  if (destinations.length === 0) {
+    throw new Error(`No destinations available for locale "${lng}".`);
+  }
 
   const selectedSlug = resolvedSearchParams.destination;
-  const hasSelectedSlug = destinations.some((destination) => destination.slug === selectedSlug);
+  const hasSelectedSlug = destinations.some(
+    (destination) => destination.slug === selectedSlug,
+  );
   const activeDestination = hasSelectedSlug
     ? (selectedSlug as string)
-    : (destinations[0]?.slug ?? "");
+    : destinations[0].slug;
+
   const labels = {
     avgDistance: safeT("labels.avgDistance"),
     estTravelTime: safeT("labels.estTravelTime"),
   };
+
   const activeDestinationData = destinations.find(
     (destination) => destination.slug === activeDestination,
   );
@@ -134,17 +105,6 @@ export default async function Destination({ params, searchParams }: PageProps) {
           </div>
         </div>
       </article>
-  </main>
+    </main>
   );
 }
-
-
-
-
-
-
-
-
-  
- 
-  

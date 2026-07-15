@@ -2,12 +2,6 @@
   "name": "cleanapp",
   "version": "0.1.0",
   "private": true,
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "better-sqlite3",
-      "bcrypt"
-    ]
-  },
   "packageManager": "pnpm@10.32.1",
   "scripts": {
     "postinstall": "node scripts/prisma-generate.mjs",
