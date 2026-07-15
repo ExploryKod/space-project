@@ -1,0 +1,15 @@
+{
+  "title": "Tourisme spatial — Site multipage",
+  "description": "Planifiez votre voyage au-delà de la Terre avec des destinations, des équipages et des technologies spatiales.",
+  "tagline": "Livrez plus vite avec une structure claire.",
+  "header": {
+    "brand": "CleanApp",
+    "home": "Accueil",
+    "login": "Connexion",
+    "register": "Inscription"
+  },
+  "footer": {
+    "copyright": "© {{year}} CleanApp",
+    "credit": "Construit avec Next.js"
+  }
+}

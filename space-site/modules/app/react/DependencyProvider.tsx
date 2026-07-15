@@ -1,0 +1,20 @@
+import { Dependencies } from '@store/dependencies'
+import { createContext, useContext } from 'react'
+
+const DependenciesContext = createContext<Dependencies | null>(null)
+
+export const DependenciesProvider: React.FC<{ dependencies:Dependencies , children: React.ReactNode }> = ({ dependencies, children }) => {
+    return <DependenciesContext.Provider value={dependencies}>
+        {children}
+    </DependenciesContext.Provider>
+}
+
+export const useDependencies = () => {
+    const dependencies = useContext(DependenciesContext)
+
+    if (!dependencies) {
+        throw new Error("useDependencies must be used within a DependenciesProvider")
+    }
+
+    return dependencies
+}
