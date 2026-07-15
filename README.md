@@ -32,6 +32,12 @@ npm run dev
 API : [http://localhost:3333](http://localhost:3333)  
 Exemple : `GET /api/v1/destinations?lng=fr`
 
+### Documentation API
+
+En attendant la mise en place d'une documentation interactive (Swagger / OpenAPI), les routes sont décrites manuellement dans [`docs/api/`](docs/api/) :
+
+- [Destinations](docs/api/api.destination.md)
+
 ## Frontend (`space-site`)
 
 ```bash
