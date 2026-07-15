@@ -1,6 +1,6 @@
 # Space Tourism
 
-Site multipage de **tourisme spatial** : présentation des destinations, de l'équipage et des technologies de voyage. Interface en **Next.js** (i18n fr/en), contenu dynamique servi par une **API REST AdonisJS**.
+Site multipage de **tourisme spatial** : présentation des destinations, de l'équipage et des technologies de voyage. Interface en **Next.js** (i18n fr/en), contenu dynamique servi par une **API avec AdonisJS**.
 
 **Note**<br>
 
@@ -16,7 +16,7 @@ L'api n'est pas encore relié pleinement au site frontend et surtout **le site f
 
 ```text
 space-site/   → frontend (Next.js)
-space-api/    → backend (AdonisJS, API REST)
+space-api/    → backend (AdonisJS)
 ```
 
 ## Prérequis
